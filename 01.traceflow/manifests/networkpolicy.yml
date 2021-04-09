@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-from-pod1
+spec:
+  podSelector:
+    matchLabels:
+      role: destination
+  policyTypes:
+  - Ingress    
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          role: source
+    ports:
+    - protocol: TCP
+      port: 80  
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-to-pod2
+spec:
+  podSelector:
+    matchLabels:
+      role: source
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          role: destination
