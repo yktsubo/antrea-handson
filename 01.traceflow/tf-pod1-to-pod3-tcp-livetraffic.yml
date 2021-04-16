@@ -1,14 +1,18 @@
 apiVersion: crd.antrea.io/v1alpha1
 kind: Traceflow
 metadata:
-  name: tf-pod1-to-pod2-icmp
+  name: tf-pod1-to-pod3-tcp-live-traffic
 spec:
+  liveTraffic: true
   source:    
     pod: pod1
     namespace: default    
   destination:
-    pod: pod2
+    pod: pod3
     namespace: default
   packet:
     ipHeader:
-      protocol: 1
+      protocol: 6
+    transportHeader:
+      tcp:
+        dstPort: 80

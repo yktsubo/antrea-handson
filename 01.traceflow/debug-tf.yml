@@ -1,18 +1,19 @@
-apiVersion: ops.antrea.tanzu.vmware.com/v1alpha1
+apiVersion: crd.antrea.io/v1alpha1
 kind: Traceflow
 metadata:
-  name: tf-pod1-to-pod2
+  name: test
 spec:
+  liveTraffic: true
+  #droppedOnly: true
   source:    
     pod: pod1
     namespace: default    
   destination:
-    pod: pod2
+    service: tf-destination
     namespace: default
   packet:
     ipHeader:
       protocol: 6
     transportHeader:
       tcp:
-        srcPort: 10002
         dstPort: 80
